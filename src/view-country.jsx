@@ -6,15 +6,17 @@ import { useContext } from "react";
 import { CountryContext } from "./countryContext";
 
 export default function ViewCountry() {
-  const { id } = useParams();
-  const { countries } = useFetch(`http://localhost:3000/country/`+id);
-  const [borderNames, setBorderNames] = useState([]);
+  const { name } = useParams();
   const {Theme}=useContext(CountryContext)
+  const { countries,loading } = useFetch(`https://restcountries.com/v3.1/name/${name}`);
+  const [borderNames, setBorderNames] = useState([]);
+ 
+
   useEffect(() => {
     setBorderNames([]);
-    if ( countries.borders && countries.borders.length > 0) {
-      countries.borders.forEach((border) => {
-       fetch(`http://localhost:3000/country?alpha3Code=${border}`)
+    if (countries[0] && countries[0].borders) {
+      countries[0].borders.forEach((border) => {
+       fetch(`https://restcountries.com/v3.1/alpha/${border}`)
        .then(data=>{
         return data.json() 
        })
@@ -25,15 +27,16 @@ export default function ViewCountry() {
       });
     }
   }, [countries]);
+if(loading){
+  return <div className="loading-div"><div className={Theme?"loading light-loading-div":"loading"}></div><p>Loading country details</p></div>
+}
 
-  const handleLinkClick = () => {
-    setBorderNames([]); 
-  };
+
 
   return (
     <div className="viewCountry">
-      {countries && (
-        <div key={countries.numericCode}>
+      {countries[0] && (
+        <div key={countries[0].numericCode}>
           <div className="backdiv">
             <div className={Theme?"back light-back-btn":"back-btn"}>
               <button className={Theme?"back light-back":"back"}><span>←</span><Link to="/">Back</Link></button>
@@ -41,31 +44,31 @@ export default function ViewCountry() {
           </div>
 
           <div className="country-description">
-            <img className="flag" src={countries.flag} alt=""></img>
+            <img className="flag" src={countries[0].flags.png} alt=""></img>
             <div className="details">
               <div className="about-country">
-                <h1 className="countryName">{countries.name}</h1>
+                <h1 className="countryName">{countries[0].name.common}</h1>
                 <br></br>
                 <div className="description">
                   <span>Native Name:</span>
-                  <p className="nativeName">{countries.nativeName}</p>
+                  <p className="nativeName">{countries[0].name.common}</p>
                 </div>
                 <div className="description">
                   <span>Population:</span>
-                  <p className="population">{countries.population}</p>
+                  <p className="population">{countries[0].population}</p>
                 </div>
                 <div className="description">
                   <span> Region: </span>
-                  <p className="region">{countries.region}</p>
+                  <p className="region">{countries[0].region}</p>
                 </div>
                 <div className="description">
                   <span>Sub Region: </span>
-                  <p className="Sub region">{countries.subregion}</p>
+                  <p className="Sub region">{countries[0].subregion}</p>
                 </div>
                 <div className="description">
                   <span> Capital:</span>
                   <p className="capital">
-                    {countries.capital ? countries.capital : "No capital available"}
+                    {countries[0].capital ? countries[0].capital : "No capital available"}
                   </p>
                 </div>
               
@@ -74,25 +77,25 @@ export default function ViewCountry() {
               <div className="secondary-description">
                 <div className="description">
                   <span> Top Level Domain:</span>
-                  <p className="topLevelDomain">{countries.topLevelDomain}</p>
+                  <p className="topLevelDomain">{countries[0].tld[0]}</p>
                 </div>
                 <div className="description">
                   <span> Languages:</span>
                   <p className="languages">
-                    {countries.languages
-                      ? countries.languages.map((language) => language.name).join(", ")
+                    {countries[0].languages
+                      ? Object.keys(countries[0].languages).map((code) =>  countries[0].languages[code]).join(", ")
                       : "No languages available"}
                   </p>
                 </div>
                 <div className="description">
                   <span> Currencies:</span>
                   <p className="languages">
-                    {countries.currencies
-                      ? countries.currencies.map((currency) => currency.name).join(", ")
-                      : "No currencies available"}
+                    {countries[0].currencies
+                     ? Object.keys(countries[0].currencies).map((code) =>  countries[0].currencies[code].name).join(", ")
+                     : "No currencies available"}
                   </p>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
           </div>
@@ -100,9 +103,9 @@ export default function ViewCountry() {
             <span>Border countries:</span>
             <div className="theBorders">
             {
-           countries.borders? borderNames && borderNames.map((border,index)=><Link key={index} to={`/AboutCountry/${border.id}/`} onClick={handleLinkClick}><button key={index}  className={Theme?"border-c1 light-border-c1":"border-c1"}>{border.name}</button></Link>):<p className="languages">No border countries available </p>
+           countries[0].borders? borderNames && borderNames.map((border,index)=><Link key={index} to={`/AboutCountry/${border.name.common}/`} ><button key={index}  className={Theme?"border-c1 light-border-c1":"border-c1"}>{border.name.common}</button></Link>):<p className="languages">No border countries available </p>
              }
-              </div>
+              </div> 
         </div>
       </div>
           )}                

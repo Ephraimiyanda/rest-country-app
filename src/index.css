@@ -8,6 +8,7 @@
   color:  hsl(0, 0%, 100%);
  font-family: Nunito Sans;
  height: 100%;
+ transition:all 0.5s;
 }
 .app{
   display: flex;
@@ -21,6 +22,7 @@
 .nav{
   top: 0px;
   position: sticky;
+  
 }
 header{
   display: flex;
@@ -28,6 +30,7 @@ header{
   margin-bottom: 20px;
   background-color:  hsl(209, 23%, 22%);
   padding: 10px;
+  padding-top: 15px;
 
 }
 .searchDiv{
@@ -45,7 +48,7 @@ header{
   border: 0px;
   border-radius: 2px;
   height: min-content;
-  width: 96px;
+  width: 0;
   padding: 10px;
   padding-right: 0px;
   padding-left: 0px;
@@ -54,11 +57,21 @@ header{
   line-height: 20px;
   list-style-type: none;
   box-shadow:  0 0px 2px 0 rgba( 0, 0, 0, 0.18);
-  display: none;
+  transition: all 0.5s;
+  position: absolute;
+  overflow-x: hidden;
+  z-index: 1;
+  right: 0%;
+  
 }
 .show-region{
   display: block;
+  opacity: 1;
+  margin-left: 0px;
+  width: 96px;
+  right: 10px;
 }
+
 li{
   display: flex;
   cursor: pointer;
@@ -104,13 +117,19 @@ input{
   padding-top: 5px;
   margin-bottom: 10px;
   cursor: pointer;
+  display: flex;
+  margin-left: auto;
+  gap: 5px;
 }
-
+ p span{
+  margin-top: 1px;
+  
+}
 .container{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 66px;
   gap: 30px;
 }
 .countryName{
@@ -252,7 +271,20 @@ cursor:pointer;
 
 }
 
-
+.loading-div{
+  height: 100%;
+  width: min-content;
+ margin: auto;
+ margin-top: 10%;
+ flex-direction: column;
+ align-content: center;
+}
+.loading-div p{
+  padding: 0px;
+  width: 150px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
 .loading{
   margin: auto;
   color: white;
@@ -261,7 +293,15 @@ cursor:pointer;
   width: 60px;
   border-style: dotted ;
   border-width: 10px;
-  animation: rotation 3s infinite;
+  animation: rotation 2s infinite;
+}
+@keyframes rotation{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(359deg);
+  }
 }
 .theBorders{
   display: flex;
@@ -276,6 +316,14 @@ cursor:pointer;
 }
 .mode{
   cursor: pointer;
+  
+}
+.mode span{
+  display: flex;
+  gap: 4px;
+}
+.mode span img{
+  margin-top: -4px;
 }
 
 
@@ -305,7 +353,7 @@ body.light{
 .light-header div{
   color:hsl(200, 15%, 8%);
 }
-.light ul{
+.light-ul{
   background-color: #fff;
   color:hsl(200, 15%, 8%);
 }
@@ -316,12 +364,11 @@ body.light{
 .light-element a{
   color:hsl(200, 15%, 8%);
 }
-.light .regionHeading {
-  background-color: hsl(0, 0%, 100%);;
-}
-.light-dropdown{
+
+.light-select-region{
   background-color: #fff;
-  
+  color:hsl(200, 15%, 8%);
+  box-shadow:  0 0px 2px 0 rgba( 0, 0, 0, 0.18);
 }
 .light-border-c1{
 
@@ -356,10 +403,15 @@ text-decoration: none;
   box-shadow:  1px 0.5px 1px 0.5px rgba( 0, 0, 0, 0.18);
   background-color: #fff; 
 }
-
+.light-loading-div{
+  color: black;
+}
 
 
 @media (max-width:884px) {
+  .loading-div{
+    margin-top: 20%;
+  }
   .flag{
     width: 90%;
     margin-left: auto;
@@ -380,6 +432,9 @@ text-decoration: none;
 }
 
 @media (max-width:450px) {
+  .loading-div{
+    margin-top: 40%;
+  }
   .flag{
     height: 200px;
     margin-left: auto;
@@ -401,10 +456,10 @@ text-decoration: none;
           width: 100%;
           display: flex;
           flex-direction: column;
-          padding: 2px;
+          padding: 5px;
         }
         .border-countries span{
-          padding: 5px;
+          padding-left: 20px;
         }
         .country-description{
           margin: auto;
