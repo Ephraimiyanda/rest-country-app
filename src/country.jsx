@@ -19,7 +19,7 @@ export default function Country(){
       <Link to={`/AboutCountry/${country.name.common}/`} key={country.alpha3Code}>
       <img className="img" src={country.flags.png} alt="" width="260px"></img>
     <div className="countryDetails">
-    <h1 className="countryName">{country.name.common}</h1><br></br>
+    <h1 className="countryName onElement">{country.name.common}</h1><br></br>
     <div className="description"> <span>population:</span> <p className="population">{country.population}</p></div>
     <div className="description"><span> region: </span><p className="region">{country.region}</p></div>
     <div className="description"><span> capital:</span> <p className="capital">{country.capital ? country.capital : "No capital available"}</p></div>

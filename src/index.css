@@ -139,6 +139,9 @@ width: 100%;
 font-family: Nunito Sans;
 
 }
+.onElement{
+  width: 204px;
+}
 .element{
   border-radius: 10px;
   display: grid;
