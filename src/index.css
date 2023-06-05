@@ -135,8 +135,9 @@ input{
 .countryName{
 font-size: x-large;
 font-weight: 700;
-width: 230px;
+width: 100%;
 font-family: Nunito Sans;
+
 }
 .element{
   border-radius: 10px;
@@ -151,6 +152,7 @@ font-family: Nunito Sans;
 }
 .details{
   display: flex;
+  gap: 15px;
 }
 .countryDetails{
   padding-left: 20px;
@@ -197,7 +199,7 @@ p{
   align-content: center;
   gap: 40px;
  margin-top: 50px;
-width: fit-content;
+ width: fit-content;
 margin-left: auto;
 margin-right: auto;
 }

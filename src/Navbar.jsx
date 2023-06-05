@@ -6,7 +6,7 @@ export default function Navbar(){
   const{handleThemeSwitch,Theme}=useContext(CountryContext)
     return(
         <div className="nav">
-             <header className={Theme? "  light-header":''}><div>Where in the world?</div> <div className="mode"><span onClick={handleThemeSwitch}><img src={Theme?moon:sun} alt="" /> {Theme?"Darkmode":"Light mode"}</span></div></header>
+             <header className={Theme? "  light-header":''}><div>Where in the world?</div> <div className="mode"><span onClick={handleThemeSwitch}><img src={Theme?moon:sun} alt="" /> {Theme?"Dark mode":"Light mode"}</span></div></header>
         </div>
     )
 }
